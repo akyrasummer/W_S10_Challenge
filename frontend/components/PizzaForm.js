@@ -1,6 +1,9 @@
-import React from 'react'
+import React, {useReducer} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
 
-const initialFormState = { // suggested
+
+const initialFormState = { 
   fullName: '',
   size: '',
   '1': false,
@@ -8,6 +11,21 @@ const initialFormState = { // suggested
   '3': false,
   '4': false,
   '5': false,
+}
+
+// Form reducer to manage local state
+function formReducer(state, action) {
+  switch (action.type) {
+    case 'SET_FIELD':
+      return {
+        ...state,
+        [action.field]: action.value
+      }
+      case 'RESET_FORM':
+        return initialFormState
+        default:
+          return state
+  }
 }
 
 export default function PizzaForm() {
