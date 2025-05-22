@@ -1,12 +1,18 @@
 import React from 'react'
+import { Provider } from 'react-redux'
+import { store } from '../state/store'
 import PizzaForm from './PizzaForm'
 import OrderList from './OrderList'
 
-export default function App() {
+function App() {
   return (
-    <div id="app">
+    <Provider store={store}>
+      <div>
       <PizzaForm />
       <OrderList />
     </div>
+    </Provider>
   )
 }
+
+export default App

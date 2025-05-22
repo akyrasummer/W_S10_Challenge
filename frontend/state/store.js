@@ -1,18 +1,16 @@
+// frontend/state/store.js
 import { configureStore } from '@reduxjs/toolkit'
-
-const exampleReducer = (state = { count: 0 }) => {
-  return state
-}
+import pizzaReducer from './pizzaSlice' // adjust path if needed
 
 export const resetStore = () => configureStore({
   reducer: {
-    example: exampleReducer,
-    // add your reducer(s) here
+    pizza: pizzaReducer,
   },
-  middleware: getDefault => getDefault().concat(
-    // if using RTK Query for your networking: add your middleware here
-    // if using Redux Thunk for your networking: you can ignore this
-  ),
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActionTypes: ['pizza/postOrder/pending', 'pizza/postOrder/fulfilled', 'pizza/postOrder/rejected']
+    }
+  })
 })
 
 export const store = resetStore()
